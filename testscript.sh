@@ -1,33 +1,31 @@
 #!/bin/bash
 
 
-prompt="Please select a file:"
-options=( $(find -maxdepth 1 -print0 | xargs -0) )
+#sed -i '1d' file.txt
+mapfile -t myArray < file.txt
+#declare -n new_array=my_databases
 
-PS3="$prompt "
-select opt in "${options[@]}" "Quit" "Skip" ; do 
+unset myArray[0]
 
-   case $opt in
-        'Skip')
-            echo "skipping this step"
-            break
-            ;;
-        'Quit')
-             echo "quit and exit"
-	     exit
-            ;;
-        *)
-            if ! { tar ztf "$opt" || tar tf "$opt"; } >/dev/null 2>&1; then
-              echo "$opt is not a tar file"
-            else
-		# mkdir -p ./unpack
-		tar xpvf $opt --xattrs-include='*.*' --numeric-owner -C ./unpack
-	    break
-            fi
+#for i in "${!myArray[@]}"; do printf "%d\t%s\n" $i "${myArray[i]}"; done
 
-            # 
-           # break
-            ;;
-     esac
+createmenu ()
+{
+ # echo "Size of array: $#"
+ # echo "$@"
+  select option; do # in "$@" is the default
+    if [ "$REPLY" -eq "$#" ];
+    then
+      echo "Exiting..."
+      break;
+    elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
+    then
+      echo "You selected $option which is option $REPLY"
+      break;
+    else
+      echo "Incorrect Input: Select a number 1-$#"
+    fi
+  done
+}
 
-done
+createmenu "${myArray[@]}"

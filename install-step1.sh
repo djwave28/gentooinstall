@@ -84,7 +84,6 @@ VIDEO_CARDS="radeon"
 
 EOF
 
-read -p "Press enter to continue"
 nano -w /mnt/gentoo/etc/portage/make.conf 
 read -p "Press enter to continue"
 
@@ -92,48 +91,36 @@ read -p "Press enter to continue"
 # Chrooting
 
 mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
-
-read -p "Press enter to continue"
+clear
 
 mkdir --parents /mnt/gentoo/etc/portage/repos.conf
 
 cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 
+clear
+
 
 cat <<EOF 
 
-The system is done at this point. From here on the base is created and 
-the boot system will be configured and changed when needed. There is
-no need go back to the very start.
+If the Gentoo installation is interrupted anywhere after this point, it is
+possible to 'resume' the installation at this step.
 
-From this point on the installation can be broken off to start the next 
-step, which is chrooting into the Gentoo environment.
+When resuming from this point, simply run the next step
 
-start step 2 with ./install-step2.sh
 
-Suring step1 teh chrooing script is loaded.
+# ./chroot.sh
+# ./install-step2.sh
+
+
+read the documentation for details 
+
 EOF
 
-read -p "Press enter to continue"
+read -p "Press enter to quit"
+exit
 
 
 # ./chroot.sh
 
 
-#source /etc/profile  
 
-
-
- 
-
-# Tip 
-
-#If the Gentoo installation is interrupted anywhere 
-#after this point, it should be possible to 'resume' 
-#the installation at this step. There is no need to 
-#repartition the disks again! Simply mount the root 
-#partition and run the steps above starting with 
-#copying the DNS info to re-enter the working 
-#environment. This is also useful for fixing bootloader 
-#issues. More information can be found in the chroot 
-#article. 
