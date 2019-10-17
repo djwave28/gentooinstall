@@ -1,31 +1,8 @@
 #!/bin/bash
-clear
-
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-printf "I ${RED}love${NC} Stack Overflow\n"
-
-
-cat <<EOF
-
-##########################################################################
-# ${RED}THIS GUIDE WILL INSTALL A BASIC GENTOO SYSTEM
-# 
-# FOR DETAILS VISIT https://www.gentoo.org/
-#
-##########################################################################
 
 
 
-EOF
-
-
-read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
 mount /dev/sda4 /mnt/gentoo
-
-clear
-echo "Wait for download mirror to load"
-echo " "
 
 
 # Installing a stage tarball
@@ -41,13 +18,9 @@ cd /mnt/gentoo
 
 
 links https://www.gentoo.org/downloads/mirrors/
+read -p "Press enter to continue"
 
-clear
-# read -p "Press enter to continue"
-echo " "
-prompt="Please select the tarball file or other option:"
-echo " "
-
+prompt="Please select a file:"
 options=( $(find -maxdepth 1 -print0 | xargs -0) )
 
 PS3="$prompt "
@@ -75,18 +48,6 @@ select opt in "${options[@]}" "Quit" "Skip" ; do
 
 done
 
-clear
-
-
-
-cat <<EOF
-##########################################################################
-#
-# The next step is setting the system flags. The settings are for 
-# an i7 CPU Sandy Bridge, Change as needed
-#
-##########################################################################
-EOF
 
 read -p "Press enter to continue"
 
@@ -124,20 +85,6 @@ VIDEO_CARDS="radeon"
 EOF
 
 nano -w /mnt/gentoo/etc/portage/make.conf 
-clear
-
-cat <<EOF
-##########################################################################
-#
-# Next step is choosing download mirrors that we use to 
-# download packageds and updates. Choose mirrors that give 
-# a bbetter speed and download. Usually that will be the
-# closets mirrors.
-#
-##########################################################################
-EOF
-
-
 read -p "Press enter to continue"
 
 
@@ -154,26 +101,111 @@ clear
 
 
 cat <<EOF 
-
+"
 If the Gentoo installation is interrupted anywhere after this point, it is
 possible to 'resume' the installation at this step.
 
 When resuming from this point, simply run the next step
 
 
-> ./chroot.sh
-> ./install-step2.sh
+# ./chroot.sh
+# ./install-step2.sh
 
 
-read the documentation for details 
+read the documentation for details "
 
 EOF
 
 read -p "Press enter to quit"
-exit
 
 
 
+# ./chroot.sh
 
+
+# Copying DNS info
+cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
+
+cd /mnt/gentoo
+
+
+# Mounting the necessary filesystems
+if mountpoint -q /mnt/gentoo/proc; then
+  echo "/proc is mounted"
+else
+  mount --types proc /proc /mnt/gentoo/proc
+fi
+
+
+if mountpoint -q /mnt/gentoo/sys; then
+  echo "/sys is mounted"
+else
+  mount --rbind /sys /mnt/gentoo/sys
+  mount --make-rslave /mnt/gentoo/sys
+fi
+
+
+if mountpoint -q /mnt/gentoo/dev; then
+  echo "/dev is mounted"
+else
+  mount --rbind /dev /mnt/gentoo/dev
+  mount --make-rslave /mnt/gentoo/dev
+fi
+
+
+
+chroot /mnt/gentoo /bin/bash
+source /etc/profile 
+
+# this does not work from a running script. 
+export PS1="(chroot) ${PS1}"
+
+
+mount /dev/sda1 /boot
+
+
+emerge-webrsync
+read -p "Press enter to continue"
+eselect news list 
+
+
+read -p "Press enter to continue"
+
+cat  <<EOF 
+"Next choose the profiles "
+
+EOF
+
+
+eselect profile list > file.txt
+
+#sed -i '1d' file.txt
+mapfile -t myArray < file.txt
+#declare -n new_array=my_databases
+
+unset myArray[0]
+
+#for i in "${!myArray[@]}"; do printf "%d\t%s\n" $i "${myArray[i]}"; done
+
+createmenu ()
+{
+ # echo "Size of array: $#"
+ # echo "$@"
+  select option; do # in "$@" is the default
+    if [ "$REPLY" -eq "$#" ];
+    then
+      echo "Exiting..."
+      break;
+    elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
+    then
+      echo "You selected $option which is option $REPLY"
+      break;
+    else
+      echo "Incorrect Input: Select a number 1-$#"
+    fi
+  done
+}
+
+createmenu "${myArray[@]}"
 
 
