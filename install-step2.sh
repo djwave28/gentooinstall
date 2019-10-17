@@ -48,5 +48,24 @@ selectprofile ()
 }
 
 selectprofile "${myArray[@]}"
+clear
+cat <<EOF
+##########################################################################
+#
+# Next we emerge into the Gentoo @world
+#
+# You will be sked to update use flags. Please read into this subject
+# in teh handbook.
+# To start it is OK to do so. After you choose yes, you must also 
+# merg the changes with 
+# 
+# > etc-update
+#
+##########################################################################
+EOF
+
+
 
 emerge --ask --verbose --update --deep --newuse @world
+
+etc-update
