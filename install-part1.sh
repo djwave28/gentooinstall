@@ -32,8 +32,11 @@ echo " "
 
 ntpd -q -g
 
-cp install-step1.sh /mnt/gentoo
-cp install-step2.sh /mnt/gentoo
+cp install-part1.sh /mnt/gentoo
+cp install-part2.sh /mnt/gentoo
+cp emerge-world.sh /mnt/gentoo
+cp install-kernel.sh /mnt/gentoo
+cp cleanup.sh /mnt/gentoo
 cp chroot.sh /mnt/gentoo
 
 cd /mnt/gentoo
