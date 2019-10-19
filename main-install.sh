@@ -24,28 +24,28 @@ prompt="Please select a file:"
 options=( $(find -maxdepth 1 -print0 | xargs -0) )
 
 PS3="$prompt "
-select opt in "${options[@]}" "Quit" "Skip" ; do 
-
-   case $opt in
+select opt in "${options[@]}" "Quit" "Skip" ; do
+    
+    case $opt in
         'Skip')
             echo "skipping this step"
             break
-            ;;
+        ;;
         'Quit')
-             echo "quit and exit"
-	     exit
-            ;;
+            echo "quit and exit"
+            exit
+        ;;
         *)
             if ! { tar ztf "$opt" || tar tf "$opt"; } >/dev/null 2>&1; then
-              echo "$opt is not a tar file"
+                echo "$opt is not a tar file"
             else
-		# mkdir -p ./unpack
-		tar xpvf $opt --xattrs-include='*.*' --numeric-owner
-	    break
+                # mkdir -p ./unpack
+                tar xpvf $opt --xattrs-include='*.*' --numeric-owner
+                break
             fi
-            ;;
-     esac
-
+        ;;
+    esac
+    
 done
 
 
@@ -57,7 +57,7 @@ cat <<EOF > /mnt/gentoo/etc/portage/make.conf
 # built this stage.
 # Please consult /usr/share/portage/config/make.conf.example for a more
 # detailed example.
-CHOST="x86_64-pc-linux-gnu" 
+CHOST="x86_64-pc-linux-gnu"
 COMMON_FLAGS="-march=sandybridge -O2 -pipe"
 
 # C compiler flags
@@ -68,7 +68,7 @@ CXXFLAGS="\${COMMON_FLAGS}"
 FCFLAGS="\${COMMON_FLAGS}"
 FFLAGS="\${COMMON_FLAGS}"
 
-MAKEOPTS="-j2" 
+MAKEOPTS="-j2"
 
 # NOTE: This stage was built with the bindist Use flag enabled
 PORTDIR="/var/db/repos/gentoo"
@@ -84,7 +84,7 @@ VIDEO_CARDS="radeon"
 
 EOF
 
-nano -w /mnt/gentoo/etc/portage/make.conf 
+nano -w /mnt/gentoo/etc/portage/make.conf
 read -p "Press enter to continue"
 
 
@@ -100,7 +100,7 @@ cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos
 clear
 
 
-cat <<EOF 
+cat <<EOF
 "
 If the Gentoo installation is interrupted anywhere after this point, it is
 possible to 'resume' the installation at this step.
@@ -131,33 +131,33 @@ cd /mnt/gentoo
 
 # Mounting the necessary filesystems
 if mountpoint -q /mnt/gentoo/proc; then
-  echo "/proc is mounted"
+    echo "/proc is mounted"
 else
-  mount --types proc /proc /mnt/gentoo/proc
+    mount --types proc /proc /mnt/gentoo/proc
 fi
 
 
 if mountpoint -q /mnt/gentoo/sys; then
-  echo "/sys is mounted"
+    echo "/sys is mounted"
 else
-  mount --rbind /sys /mnt/gentoo/sys
-  mount --make-rslave /mnt/gentoo/sys
+    mount --rbind /sys /mnt/gentoo/sys
+    mount --make-rslave /mnt/gentoo/sys
 fi
 
 
 if mountpoint -q /mnt/gentoo/dev; then
-  echo "/dev is mounted"
+    echo "/dev is mounted"
 else
-  mount --rbind /dev /mnt/gentoo/dev
-  mount --make-rslave /mnt/gentoo/dev
+    mount --rbind /dev /mnt/gentoo/dev
+    mount --make-rslave /mnt/gentoo/dev
 fi
 
 
 
 chroot /mnt/gentoo /bin/bash
-source /etc/profile 
+source /etc/profile
 
-# this does not work from a running script. 
+# this does not work from a running script.
 export PS1="(chroot) ${PS1}"
 
 
@@ -166,12 +166,12 @@ mount /dev/sda1 /boot
 
 emerge-webrsync
 read -p "Press enter to continue"
-eselect news list 
+eselect news list
 
 
 read -p "Press enter to continue"
 
-cat  <<EOF 
+cat  <<EOF
 "Next choose the profiles "
 
 EOF
@@ -189,21 +189,21 @@ unset myArray[0]
 
 createmenu ()
 {
- # echo "Size of array: $#"
- # echo "$@"
-  select option; do # in "$@" is the default
-    if [ "$REPLY" -eq "$#" ];
-    then
-      echo "Exiting..."
-      break;
-    elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
-    then
-      echo "You selected $option which is option $REPLY"
-      break;
-    else
-      echo "Incorrect Input: Select a number 1-$#"
-    fi
-  done
+    # echo "Size of array: $#"
+    # echo "$@"
+    select option; do # in "$@" is the default
+        if [ "$REPLY" -eq "$#" ];
+        then
+            echo "Exiting..."
+            break;
+        elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
+        then
+            echo "You selected $option which is option $REPLY"
+            break;
+        else
+            echo "Incorrect Input: Select a number 1-$#"
+        fi
+    done
 }
 
 createmenu "${myArray[@]}"

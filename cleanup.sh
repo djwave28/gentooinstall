@@ -6,3 +6,6 @@ rm emerge-world.sh
 rm install-kernel.sh
 rm chroot.sh
 
+rm -R ./tmpdir/
+rm cleanup.sh
+

@@ -1,0 +1,4 @@
+sys-kernel/gentoo-sources
+sys-kernel/git-sources
+sys-kernel/vanilla-sources
+sys-kernel/ck-sources

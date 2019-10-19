@@ -1,3 +1,44 @@
-#!/bin/sh
+#!/bin/bash
+clear
+cat <<EOF
+##########################################################################
+#
+# Here we will choose a kernel to install. If you do not know what kernel
+# to choose, you can go for the handbook recomended kernel
+#
+#  kernel sys-kernel/gentoo-sources
+#
+# Learn more about available kernels, visit:
+# https://wiki.gentoo.org/wiki/Kernel/Overview#Supported_kernel_packages
+#
+##########################################################################
+EOF
 
-set prompt = "%n@%m:%~%#"
+
+mapfile -t gentooKernelsSelect < ./tmpdir/kernels.txt
+
+selectkernel ()
+{
+    select opt in "$@" "Quit"  ; do
+        
+        case $opt in
+            
+            'Quit')
+                echo "quit and exit"
+                exit
+            ;;
+            *)
+                
+                echo "$opt"
+                emerge --ask "$opt"
+                emerge --ask sys-apps/pciutils
+                break
+                
+            ;;
+        esac
+    done
+}
+
+selectkernel "${gentooKernelsSelect[@]}"
+
+#emerge --ask sys-apps/pciutils
