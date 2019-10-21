@@ -41,4 +41,9 @@ selectkernel ()
 
 selectkernel "${gentooKernelsSelect[@]}"
 
-#emerge --ask sys-apps/pciutils
+clear 
+emerge --ask sys-kernel/linux-firmware
+clear 
+cd /usr/src/linux
+make menuconfig
+

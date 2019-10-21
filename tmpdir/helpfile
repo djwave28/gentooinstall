@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo -e "Default \e[32mGreen"
+clear
+
+
+echo -e "\e[1m\e[95mInstallation steps\e[92m\e[2m"
+cat <<EOF
+install -h	:	launches this help file
+
+# ./install-start
+# chrootgentoo
+# step2
+# install-kernel
+
+EOF
+
+echo -e "\e[1m\e[95mHelper commands\e[92m\e[2m"
+cat <<EOF
+
+- install-kernel  :	will launch the kernel selection and install kernel
+
+- chrootgentoo	  :	chroot into the gentoo root (if install gets interupted)
+
+- kernel-config	  :	launches the kernel configuration tool
+
+- emerge-world	  :	emerges into the world as new user
+
+EOF
+

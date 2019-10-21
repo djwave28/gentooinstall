@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+export PATH=$PATH:./tmpdir
+
+
+install() {
+    
+    if [ $1 = '-h' ]; then
+        
+        helpfile
+        
+    fi
+}
+

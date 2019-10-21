@@ -43,7 +43,6 @@ mapfile -t myArray < ./tmpdir/file.txt
 
 unset myArray[0]
 clear
-#for i in "${!myArray[@]}"; do printf "%d\t%s\n" $i "${myArray[i]}"; done
 
 selectprofile ()
 {

@@ -1,23 +1,13 @@
 #!/bin/bash
+mount /dev/sda4 /mnt/gentoo
+cp -ar ./tmpdir /mnt/gentoo/tmpdir
 clear
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-printf "I ${RED}love${NC} Stack Overflow\n"
-
-
-cat <<EOF
-##########################################################################
-# ${RED}THIS GUIDE WILL INSTALL A BASIC GENTOO SYSTEM
-#
-# FOR DETAILS VISIT https://www.gentoo.org/
-#
-##########################################################################
-EOF
+cat ./tmpdir/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.02; done
 
 
 read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
-mount /dev/sda4 /mnt/gentoo
+
 
 clear
 echo "Wait for download mirror to load"
@@ -28,16 +18,16 @@ echo " "
 
 ntpd -q -g
 
-cp install-part1.sh /mnt/gentoo
-cp install-part2.sh /mnt/gentoo
-cp emerge-world.sh /mnt/gentoo
-cp install-kernel.sh /mnt/gentoo
-cp cleanup.sh /mnt/gentoo
-cp chroot.sh /mnt/gentoo
-# cp make.conf /mnt/gentoo
+#cp install-part1.sh /mnt/gentoo
+#cp install-part2.sh /mnt/gentoo
+#cp emerge-world.sh /mnt/gentoo
+#cp install-kernel.sh /mnt/gentoo
+#cp cleanup.sh /mnt/gentoo
+#cp chroot.sh /mnt/gentoo
+#cp kernel-config.sh /mnt/gentoo
 # cp kernels.txt /mnt/gentoo
 
-cp -avr ./tmpdir /mnt/gentoo/tmpdir
+
 
 cd /mnt/gentoo
 
@@ -130,14 +120,15 @@ clear
 cat <<EOF
 
 If the Gentoo installation is interrupted anywhere after this point, it is
-possible to 'resume' the installation at this step.
+possible to 'resume' the installation at this step. 
 
 When resuming from this point, simply run the next step
 
+> chrootgentoo
 
-> ./chroot.sh
-> ./install-part2.sh
+Type 'help' for more information
 
+> step2
 
 read the documentation for details
 

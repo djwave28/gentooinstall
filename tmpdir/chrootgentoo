@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Copying DNS info
+
+mount /dev/sda4 /mnt/gentoo
+
 cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
 
 cd /mnt/gentoo
