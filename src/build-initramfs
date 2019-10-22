@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+emerge --ask sys-kernel/genkernel
+genkernel --install initramfs
+genkernel --lvm --mdadm --install initramfs
+
+read -p "Press enter to view installe initramfs"
+ls /boot/initramfs*

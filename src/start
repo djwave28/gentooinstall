@@ -1,9 +1,13 @@
 #!/bin/bash
+. ./config
+echo $root
+
+
 mount /dev/sda4 /mnt/gentoo
-cp -ar ./tmpdir /mnt/gentoo/tmpdir
+cp -ar ./src /mnt/gentoo/src
 clear
 
-cat ./tmpdir/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.02; done
+cat ./src/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.02; done
 
 
 read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
@@ -83,7 +87,7 @@ EOF
 read -p "Press enter to continue"
 
 
-value=`cat ./tmpdir/make.conf`
+value=`cat ./src/make.conf`
 echo "$value" > /mnt/gentoo/etc/portage/make.conf
 
 

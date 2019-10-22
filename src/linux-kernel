@@ -15,7 +15,7 @@ cat <<EOF
 EOF
 
 
-mapfile -t gentooKernelsSelect < ./tmpdir/kernels.txt
+mapfile -t gentooKernelsSelect < ./src/kernels.txt
 
 selectkernel ()
 {

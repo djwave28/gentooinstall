@@ -1,0 +1,80 @@
+#!/bin/bash
+
+mapfile -t menu_array < ./src/menu_items
+
+
+
+
+selectkernel ()
+{
+    select opt in "$@" "Quit"  ; do
+        
+        case $opt in
+            'start step 1')
+                start
+                break
+            ;;
+            'start step 2')
+                step2
+                break
+            ;;
+            'emerge world')
+                echo "starting step 1"
+                break
+            ;;
+            'install kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'download tarball')
+                echo "starting step 1"
+                break
+            ;;
+            'read news')
+                echo "starting step 1"
+                break
+            ;;
+            'clean dir')
+                echo "starting step 1"
+                break
+            ;;
+            'configure kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'read help')
+                echo "starting step 1"
+                break
+            ;;
+            'networking')
+                echo "starting step 1"
+                break
+            ;;
+            'conpile kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'install initramfs')
+                echo "starting step 1"
+                break
+            ;;
+            'configure make.conf')
+                echo "starting step 1"
+                break
+            ;;
+            'Quit')
+                echo "quit and exit" $REPLY
+                exit
+            ;;
+            *)
+                
+                echo "$opt"
+                
+                break
+                
+            ;;
+        esac
+    done
+}
+
+selectkernel "${menu_array[@]}"

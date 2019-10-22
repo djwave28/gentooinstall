@@ -1,0 +1,26 @@
+start step 1
+start step 2
+emerge world
+install kernel
+download tarball
+read news
+clean dir
+configure kernel
+read help
+networking
+conpile kernel
+install initramfs
+configure make.conf
+start step 1
+start step 2
+emerge world
+install kernel
+download tarball
+read news
+clean dir
+configure kernel
+read help
+networking
+conpile kernel
+install initramfs
+configure make.conf

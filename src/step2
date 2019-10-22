@@ -6,8 +6,8 @@ mount /dev/sda1 /boot
 
 emerge-webrsync
 
-eselect news read > ./tmpdir/news.txt
-nano ./tmpdir/news.txt
+eselect news read > ./src/news.txt
+nano ./src/news.txt
 
 read -p "Press enter to continue"
 
@@ -38,7 +38,7 @@ locale-gen
 eselect profile list > ./tmpdir/file.txt
 
 #sed -i '1d' file.txt
-mapfile -t myArray < ./tmpdir/file.txt
+mapfile -t myArray < ./src/file.txt
 #declare -n new_array=my_databases
 
 unset myArray[0]
