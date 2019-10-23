@@ -1,7 +1,9 @@
 #!/bin/bash
+. ./src/config
 
-mapfile -t menu_array < ./src/menu_items
 
+mapfile -t menu_array < ./src/menu_main_items
+clear
 
 
 
@@ -10,14 +12,41 @@ selectkernel ()
     select opt in "$@" "Quit"  ; do
         
         case $opt in
-            'start step 1')
-                start
+            'configure install')
+                nano -m ./src/config
+                menu_main
                 break
             ;;
-            'start step 2')
-                step2
+            'preparing disk')
+                cfdisk /dev/${DISK}
+                menu_main
                 break
             ;;
+            
+            'Linux Kernel')
+                clear
+                menu_kernel
+                break
+            ;;
+            'install step 1')
+                inst_step1
+                break
+            ;;
+            'install step 2')
+                inst_step2
+                break
+            ;;
+            'chroot gentoo')
+                inst_chroot
+                break
+            ;;
+            'read news')
+                nano ./src/news.txt
+                menu_main
+                break
+            ;;
+            
+            
             'emerge world')
                 echo "starting step 1"
                 break
@@ -59,18 +88,15 @@ selectkernel ()
                 break
             ;;
             'configure make.conf')
-                echo "starting step 1"
+                nano ./src/make.conf
                 break
             ;;
             'Quit')
-                echo "quit and exit" $REPLY
+                echo "quit and exit"
                 exit
             ;;
             *)
-                
-                echo "$opt"
-                
-                break
+                echo -e  "\e[91mInvalid option\e[0m"
                 
             ;;
         esac

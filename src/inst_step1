@@ -1,45 +1,70 @@
 #!/bin/bash
 . ./config
-echo $root
+clear
+
+cat <<EOF
+##########################################################################
+#
+# Welcome to phase 1 of the gentoo installation. 
+#
+# This first step will wet up the base gentoo environment
+# that is needed to start configuring the system.
+#
+# After this first step it will be possible to boot
+# the medium and chroot into gentoo for configurations
+# and settings.
+#
+# Make sure you have configured your install configuration
+# variables. If not sure, please quit (q) and check
+#
+# - DISCLAIMER:
+# Errors in your installation configuration may potentially 
+# hurt your system
+#
+# visit: https://wiki.gentoo.org/
+#
+##########################################################################
+
+EOF
 
 
-mount /dev/sda4 /mnt/gentoo
+while true; do
+    read -p "Do you wish to proceed? [Y/N]" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) menu_main;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+clear
+
+# read -p "Press enter to continue"
+
+# mount the root partition into /mnt/gentoo
+mount /dev/${ROOT} /mnt/gentoo
+
+# copy instal framework
 cp -ar ./src /mnt/gentoo/src
-clear
 
-cat ./src/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.02; done
-
-
-read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
-
-
-clear
-echo "Wait for download mirror to load"
-echo " "
-
-
-# Installing a stage tarball
-
+# set system time
 ntpd -q -g
 
-#cp install-part1.sh /mnt/gentoo
-#cp install-part2.sh /mnt/gentoo
-#cp emerge-world.sh /mnt/gentoo
-#cp install-kernel.sh /mnt/gentoo
-#cp cleanup.sh /mnt/gentoo
-#cp chroot.sh /mnt/gentoo
-#cp kernel-config.sh /mnt/gentoo
-# cp kernels.txt /mnt/gentoo
+
+# read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
 
 
+clear
+echo " "
+echo "We will be downloading the stage 3 tarball."
+echo " "
+read -p "Press enter to launch the the links terminal web browser."
 
 cd /mnt/gentoo
-
-
 
 links https://www.gentoo.org/downloads/mirrors/
 
 clear
+
 # read -p "Press enter to continue"
 echo " "
 prompt="Please select the tarball file or other option:"
@@ -123,18 +148,22 @@ clear
 
 cat <<EOF
 
+Great!
+
+At this point you have the base sustemn installed and you can come
+back at any time by installing the your boot medium
+
+Just remount your installation scripts and start the menu again
+
+> . gentoo
+
+The script will stop now and you must exit. Rastart the menu  and
+chroot into gentoo. Then start step 2
+
+
 If the Gentoo installation is interrupted anywhere after this point, it is
 possible to 'resume' the installation at this step. 
 
-When resuming from this point, simply run the next step
-
-> chrootgentoo
-
-Type 'help' for more information
-
-> step2
-
-read the documentation for details
 
 EOF
 

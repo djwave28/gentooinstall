@@ -22,7 +22,10 @@ selectkernel ()
     select opt in "$@" "Quit"  ; do
         
         case $opt in
-            
+              'Main Menu')
+                clear 
+menu
+            ;;
             'Quit')
                 echo "quit and exit"
                 exit
@@ -41,9 +44,9 @@ selectkernel ()
 
 selectkernel "${gentooKernelsSelect[@]}"
 
-clear
+clear 
 emerge --ask sys-kernel/linux-firmware
-clear
+clear 
 cd /usr/src/linux
 make menuconfig
 

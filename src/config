@@ -1,0 +1,23 @@
+#!/bin/bash
+
+###########################################################
+#
+#	These settings will be used for installtion
+#
+#	WARNING !!!!!!!!!!!!!!!!!
+#
+#	Some settings can be harmfull if they do not 
+#	have the correct value. It is important to 
+#	check this list and change if needed.
+#
+############################################################
+
+DISK="sda"
+BOOT="sda2"
+EFI="sda1"
+ROOT="sda4"
+
+
+TIMEZONE="America/Los_Angeles"
+
+

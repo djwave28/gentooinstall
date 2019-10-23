@@ -2,12 +2,29 @@
 
 
 mount /dev/sda1 /boot
+##########################################################################
+#
+# Welcome to phase 2 of the gentoo installation. 
+#
+# In step 2 we will fetch the gentoo portage snapshot. Portage is the 
+# official package manager and distribution system for Gentoo. 
+#
+# You will also need to select a profile. It is important 
+# to unsertand what profiles are. Visit the Gentoo website.
+#
+#
+# At this point there is also a newsread generated. This newsread 
+# is saved and can be read from the maine menu
+#
+# visit: https://wiki.gentoo.org/
+#
+##########################################################################
 
 
 emerge-webrsync
 
 eselect news read > ./src/news.txt
-nano ./src/news.txt
+
 
 read -p "Press enter to continue"
 

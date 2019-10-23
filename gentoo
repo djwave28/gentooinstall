@@ -1,15 +1,28 @@
 #!/bin/bash
 
 
-export PATH=$PATH:./src
+# export PATH=$PATH:./src
+
+function addToPATH {
+  case ":$PATH:" in
+    *":$1:"*) :;; # already there
+    *) PATH="$1:$PATH";; # or PATH="$PATH:$1"
+  esac
+}
+
+addToPATH ./src
+
 
 . ./config
 
+# read intro documentation
+cat ./src/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.01; done
+
+read -p "Hit enter to continue"
+
 
 startmenu() {
-    menu
-
-
+    menu_main
 }
 
 startmenu

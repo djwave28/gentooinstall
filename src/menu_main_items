@@ -1,8 +1,20 @@
-start step 1
-start step 2
+configure install
+preparing disk
+
+install step 1
+chroot gentoo
+install step 2
+
+read news
+
 emerge world
+
+make sys-config
+
+Linux Kernel
 install kernel
 download tarball
+
 read news
 clean dir
 configure kernel

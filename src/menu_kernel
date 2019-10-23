@@ -1,0 +1,106 @@
+#!/bin/bash
+
+mapfile -t menu_array < ./src/menus/kernel_items
+
+
+clear
+cat <<EOF
+##########################################################################
+#
+# Here we will choose a kernel to install. If you do not know what kernel
+# to choose, you can go for the handbook recomended kernel
+#
+#  kernel sys-kernel/gentoo-sources
+#
+# Learn more about available kernels, visit:
+# https://wiki.gentoo.org/wiki/Kernel/Overview#Supported_kernel_packages
+#
+##########################################################################
+EOF
+
+
+cat <<EOF
+Kernel menu
+
+EOF
+
+
+selection_menu ()
+{
+    select opt in "$@" "Back" "Quit"  ; do
+        
+        case $opt in
+            'about kernels')
+                links https://wiki.gentoo.org/wiki/Kernel/Overview
+                clear
+                menu_kernel
+                break
+            ;;
+            'install kernel')
+                inst_linux_kernel
+                break
+            ;;
+            'emerge world')
+                echo "starting step 1"
+                break
+            ;;
+            'install kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'download tarball')
+                echo "starting step 1"
+                break
+            ;;
+            'read news')
+                echo "starting step 1"
+                break
+            ;;
+            'clean dir')
+                echo "starting step 1"
+                break
+            ;;
+            'configure kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'read help')
+                echo "starting step 1"
+                break
+            ;;
+            'networking')
+                echo "starting step 1"
+                break
+            ;;
+            'conpile kernel')
+                echo "starting step 1"
+                break
+            ;;
+            'install initramfs')
+                echo "starting step 1"
+                break
+            ;;
+            'configure make.conf')
+                echo "starting step 1"
+                break
+            ;;
+            'Back')
+                menu
+                exit
+            ;;
+            'Quit')
+                echo "quit and exit" $REPLY
+                exit
+            ;;
+            *)
+                
+                echo "$opt"
+                
+                break
+                
+            ;;
+        esac
+    done
+}
+
+selection_menu "${menu_array[@]}"
