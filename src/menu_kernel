@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mapfile -t menu_array < ./src/menus/kernel_items
+mapfile -t menu_array < ./src/menu_kernel_items
 
 
 clear
@@ -16,11 +16,6 @@ cat <<EOF
 # https://wiki.gentoo.org/wiki/Kernel/Overview#Supported_kernel_packages
 #
 ##########################################################################
-EOF
-
-
-cat <<EOF
-Kernel menu
 
 EOF
 
@@ -40,35 +35,18 @@ selection_menu ()
                 inst_linux_kernel
                 break
             ;;
-            'emerge world')
-                echo "starting step 1"
-                break
-            ;;
             'install kernel')
                 echo "starting step 1"
                 break
             ;;
-            'download tarball')
-                echo "starting step 1"
-                break
-            ;;
-            'read news')
-                echo "starting step 1"
-                break
-            ;;
-            'clean dir')
-                echo "starting step 1"
+            'install initramfs')
+                clear
+                inst_build-initramfs
+                clear
+                menu_kernel
                 break
             ;;
             'configure kernel')
-                echo "starting step 1"
-                break
-            ;;
-            'read help')
-                echo "starting step 1"
-                break
-            ;;
-            'networking')
                 echo "starting step 1"
                 break
             ;;
@@ -80,12 +58,8 @@ selection_menu ()
                 echo "starting step 1"
                 break
             ;;
-            'configure make.conf')
-                echo "starting step 1"
-                break
-            ;;
             'Back')
-                menu
+                menu_main
                 exit
             ;;
             'Quit')
@@ -93,7 +67,6 @@ selection_menu ()
                 exit
             ;;
             *)
-                
                 echo "$opt"
                 
                 break

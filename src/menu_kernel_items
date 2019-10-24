@@ -1,4 +1,7 @@
-about kernels
 install kernel
+config kernel
+compile kernel
 install pmcia utils
 install firmware
+install initramfs
+about kernels

@@ -19,10 +19,14 @@ mapfile -t gentooKernelsSelect < ./src/kernels.txt
 
 selectkernel ()
 {
-    select opt in "$@" "Quit"  ; do
+    select opt in "$@" "Quit" "Back" ; do
         
         case $opt in
-            
+            'Back')
+                clear
+                menu_kernel
+                break
+            ;;
             'Quit')
                 echo "quit and exit"
                 exit

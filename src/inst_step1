@@ -1,5 +1,5 @@
 #!/bin/bash
-. ./config
+. ./src/config
 clear
 
 cat <<EOF
@@ -15,7 +15,7 @@ cat <<EOF
 # and settings.
 #
 # Make sure you have configured your install configuration
-# variables. If not sure, please quit (q) and check
+# variables. If not sure, please quit (n) and check
 #
 # - DISCLAIMER:
 # Errors in your installation configuration may potentially 
@@ -44,7 +44,8 @@ clear
 mount /dev/${ROOT} /mnt/gentoo
 
 # copy instal framework
-cp -ar ./src /mnt/gentoo/src
+cp ./gentoo /mnt/gentoo
+cp -R ./src /mnt/gentoo/src
 
 # set system time
 ntpd -q -g

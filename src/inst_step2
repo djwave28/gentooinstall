@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. ./src/config
 
 mount /dev/sda1 /boot
 ##########################################################################
@@ -33,7 +33,7 @@ Next choose the profiles
 EOF
 
 
-echo "America/Los_Angeles" > /etc/timezone
+echo ${TIMEZONE} > /etc/timezone
 emerge --config sys-libs/timezone-data
 clear
 nano -w /etc/locale.gen

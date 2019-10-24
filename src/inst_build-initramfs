@@ -1,0 +1,34 @@
+#!/bin/bash
+
+cat <<EOF
+***************************************************************
+
+In certain cases it is necessary to build an initramfs - 
+an initial ram-based file system. The most common reason 
+is when important file system locations (like /usr/ or /var/) 
+are on separate partitions. With an initramfs, these 
+partitions can be mounted using the tools available 
+inside the initramfs.
+
+Without an initramfs, there is a huge risk that the system 
+will not boot up properly as the tools that are responsible 
+for mounting the file systems need information that resides 
+on those file systems.
+
+***************************************************************
+
+EOF
+read -r -p "Are you sure? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+    emerge --ask sys-kernel/genkernel
+    genkernel --install initramfs
+    genkernel --lvm --install initramfs
+    
+else
+    menu_kernel
+fi
+
+
+read -p "Press enter to view installe initramfs"
+ls /boot/initramfs*

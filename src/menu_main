@@ -12,7 +12,7 @@ selectkernel ()
     select opt in "$@" "Quit"  ; do
         
         case $opt in
-            'configure install')
+            'edit install config')
                 nano -m ./src/config
                 menu_main
                 break
@@ -23,9 +23,10 @@ selectkernel ()
                 break
             ;;
             
-            'Linux Kernel')
+            'edit make.conf')
                 clear
-                menu_kernel
+                nano -m ./src/make.conf
+                menu_main
                 break
             ;;
             'install step 1')
@@ -38,6 +39,24 @@ selectkernel ()
             ;;
             'chroot gentoo')
                 inst_chroot
+                break
+            ;;
+            'Kernel menu')
+                clear
+                menu_kernel
+                break
+            ;;
+            
+            
+            'edit fstab')
+                if [[ "$PWD" = / ]]; then
+                    nano -m /etc/fstab
+                    menu_main
+                else
+                    echo "not chrooted in gentoo"
+                fi
+                read -p "Press enter to continue"
+                menu_main
                 break
             ;;
             'read news')
