@@ -38,7 +38,8 @@ while true; do
 done
 clear
 
-# read -p "Press enter to continue"
+# set system time
+ntpd -q -g
 
 # mount the root partition into /mnt/gentoo
 mount /dev/${ROOT} /mnt/gentoo
@@ -47,8 +48,7 @@ mount /dev/${ROOT} /mnt/gentoo
 cp ./gentoo /mnt/gentoo
 cp -R ./src /mnt/gentoo/src
 
-# set system time
-ntpd -q -g
+
 
 
 # read -p "Step1 is downloading and installing the tarbal. Press enter to continue"

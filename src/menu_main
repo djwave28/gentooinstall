@@ -46,7 +46,12 @@ selectkernel ()
                 menu_kernel
                 break
             ;;
-            
+            'Install Document')
+                input="./src/install_help_doc"
+                nano $input
+                menu_main
+                break
+            ;;
             
             'edit fstab')
                 if [[ "$PWD" = / ]]; then

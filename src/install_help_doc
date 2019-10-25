@@ -1,0 +1,85 @@
+
+Installing the Gentoo installation files 
+    • ntpd -q -g (1)
+    • cd /mnt/Gentoo (1)
+    • links https://www.gentoo.org/downloads/mirrors/ (1)
+    • tar xpvf stage3-*.tar.bz2 --xattrs-include='*.*' --numeric-owner (1)
+    • nano -w /mnt/gentoo/etc/portage/make.conf (1)
+
+Chrooting
+    • mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf (1)
+    • mkdir --parents /mnt/gentoo/etc/portage/repos.conf (1)
+    • cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf (1)
+    • cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
+    • mount --types proc /proc /mnt/gentoo/proc 
+    • mount --rbind /sys /mnt/gentoo/sys 
+    • mount --make-rslave /mnt/gentoo/sys 
+    • mount --rbind /dev /mnt/gentoo/dev 
+    • mount --make-rslave /mnt/gentoo/dev 
+    • chroot /mnt/gentoo /bin/bash 
+    • source /etc/profile 
+
+Mounting the boot partition
+    • mount /dev/sda2 /boot
+    • emerge-webrsync
+
+Choosing the right profile (init system is OpenRC)
+    • eselect profile list
+    • eselect profile set 2
+
+Updating the @world set
+    • emerge --ask --verbose --update --deep --newuse @world
+
+Timezone
+    • echo "America/Los_Angeles" > /etc/timezone
+    • emerge --config sys-libs/timezone-data
+    • nano -w /etc/locale.gen
+    • locale-gen
+    • nano /etc/env.d/02locale
+
+
+Installing the sources (kernel)
+    • emerge --ask sys-kernel/gentoo-sources
+    • emerge --ask sys-apps/pciutils
+    • cd /usr/src/linux 
+    • make menuconfig
+    • make && make modules_install
+    • make install
+
+
+Optional: Building an initramfs
+    • emerge --ask sys-kernel/genkernel
+    • genkernel --lvm --install initramfs
+Kernel modules (if needed)
+    • find /lib/modules/<kernel version>/ -type f -iname '*.o' -or -iname '*.ko' | less
+    • mkdir -p /etc/modules-load.d 
+    • nano -w /etc/modules-load.d/network.conf 
+
+Installing firmware
+    • emerge --ask sys-kernel/linux-firmware
+
+
+fstab file
+    • nano -w /etc/fstab
+    • /dev/sda2   /boot     ext2    defaults        0 2
+
+Configuring the network
+    • emerge --ask --noreplace net-misc/netifrc
+    • nano -w /etc/conf.d/net
+
+Automatically start networking at boot
+    • cd /etc/init.d 
+    • ln -s net.lo net.eth0 
+    • rc-update add net.eth0 default
+
+
+The hosts file
+127.0.0.1     tux.homenetwork tux localhost
+
+
+
+
+
+
+
+
