@@ -1,0 +1,30 @@
+#!/bin/bash
+
+cat  <<EOF
+"Next choose a profile "
+EOF
+
+eselect profile list > ./src/file.txt
+mapfile -t profileArray < ./src/file.txt
+unset profileArray[0]
+
+#for i in "${!myArray[@]}"; do printf "%d\t%s\n" $i "${myArray[i]}"; done
+
+profileMenu ()
+{
+    select option; do # in "$@" is the default
+        if [ "$REPLY" -eq "$#" ];
+        then
+            echo "Exiting..."
+            break;
+        elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
+        then
+            echo "You selected $option which is option $REPLY"
+            break;
+        else
+            echo "Incorrect Input: Select a number 1-$#"
+        fi
+    done
+}
+
+profileMenu "${profileArray[@]}"

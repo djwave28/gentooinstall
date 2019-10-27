@@ -44,14 +44,16 @@ ntpd -q -g
 # mount the root partition into /mnt/gentoo
 mount /dev/${ROOT} /mnt/gentoo
 
+echo $PWD
+
 # copy instal framework
 cp ./gentoo /mnt/gentoo
-cp -R ./src /mnt/gentoo/src
+cp -v -a ./src /mnt/gentoo
 
 
 
 
-# read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
+read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
 
 
 clear

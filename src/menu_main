@@ -41,6 +41,15 @@ selectkernel ()
                 inst_chroot
                 break
             ;;
+
+
+
+
+'elect profile')
+                clear
+                inst_select_profile
+                break
+            ;;
             'Kernel menu')
                 clear
                 menu_kernel

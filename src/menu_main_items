@@ -5,6 +5,7 @@ edit make.conf
 install step 1
 chroot gentoo
 install step 2
+elect profile
 
 edit fstab
 Kernel menu
