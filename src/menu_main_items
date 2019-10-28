@@ -5,15 +5,16 @@ edit make.conf
 install step 1
 chroot gentoo
 install step 2
+
 elect profile
+emerge world
+
 
 edit fstab
 Kernel menu
 
 Install Document
 read news
-
-emerge world
 
 make sys-config
 

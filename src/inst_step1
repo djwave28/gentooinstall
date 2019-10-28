@@ -2,31 +2,30 @@
 . ./src/config
 clear
 
+echo -e "\e[1m\e[96mGentoo Installation Phase 1\e[0m"
+echo -e "\e[93m"
+
 cat <<EOF
+
 ##########################################################################
 #
-# Welcome to phase 1 of the gentoo installation. 
+# Step 1 will install the Gentoo base setup for further installation
 #
-# This first step will wet up the base gentoo environment
-# that is needed to start configuring the system.
+# This step will contain following:
+# - download and install tarball
+# - Set make.conf parameters
 #
-# After this first step it will be possible to boot
-# the medium and chroot into gentoo for configurations
-# and settings.
-#
-# Make sure you have configured your install configuration
-# variables. If not sure, please quit (n) and check
-#
-# - DISCLAIMER:
-# Errors in your installation configuration may potentially 
-# hurt your system
-#
-# visit: https://wiki.gentoo.org/
+# Make sure all variables in the system are set correctly before 
+# proceeding installation. Check menu selection 1.
+# 
+# To learn about the installation process, visit: https://wiki.gentoo.org/
 #
 ##########################################################################
+
+
 
 EOF
-
+echo -e "\e[0m"
 
 while true; do
     read -p "Do you wish to proceed? [Y/N]" yn
@@ -38,31 +37,35 @@ while true; do
 done
 clear
 
+
 # set system time
+echo "ntpd -q -g"
 ntpd -q -g
 
-# mount the root partition into /mnt/gentoo
+echo " "
+echo "mounting the root partition into /mnt/gentoo"
 mount /dev/${ROOT} /mnt/gentoo
 
-echo $PWD
+# echo $PWD
 
 # copy instal framework
+echo " "
+echo "Copy installation command files"
 cp ./gentoo /mnt/gentoo
-cp -v -a ./src /mnt/gentoo
+cp -a ./src /mnt/gentoo
+cd /mnt/gentoo
 
-
-
+echo " "
 
 read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
 
-
 clear
+
 echo " "
 echo "We will be downloading the stage 3 tarball."
 echo " "
-read -p "Press enter to launch the the links terminal web browser."
 
-cd /mnt/gentoo
+read -p "Press enter to launch the the links terminal web browser."
 
 links https://www.gentoo.org/downloads/mirrors/
 
@@ -106,7 +109,7 @@ clear
 cat <<EOF
 ##########################################################################
 #
-# The next step is setting the system flags. The settings are for
+# Next step is setting the system flags. The settings are for
 # an i7 CPU Sandy Bridge, Change as needed
 #
 ##########################################################################
@@ -118,8 +121,8 @@ read -p "Press enter to continue"
 value=`cat ./src/make.conf`
 echo "$value" > /mnt/gentoo/etc/portage/make.conf
 
-
 nano -w /mnt/gentoo/etc/portage/make.conf
+
 clear
 
 cat <<EOF

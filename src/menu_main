@@ -41,11 +41,11 @@ selectkernel ()
                 inst_chroot
                 break
             ;;
-
-
-
-
-'elect profile')
+            
+            
+            
+            
+            'elect profile')
                 clear
                 inst_select_profile
                 break
@@ -81,7 +81,8 @@ selectkernel ()
             
             
             'emerge world')
-                echo "starting step 1"
+                inst_emerge_world
+                menu_main
                 break
             ;;
             'install kernel')

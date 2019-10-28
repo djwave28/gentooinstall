@@ -1,3 +1,4 @@
+# Install Step 1
 
 Installing the Gentoo installation files 
     • ntpd -q -g (1)
@@ -5,6 +6,10 @@ Installing the Gentoo installation files
     • links https://www.gentoo.org/downloads/mirrors/ (1)
     • tar xpvf stage3-*.tar.bz2 --xattrs-include='*.*' --numeric-owner (1)
     • nano -w /mnt/gentoo/etc/portage/make.conf (1)
+
+
+
+# Chrooting available from menu
 
 Chrooting
     • mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf (1)
@@ -18,6 +23,10 @@ Chrooting
     • mount --make-rslave /mnt/gentoo/dev 
     • chroot /mnt/gentoo /bin/bash 
     • source /etc/profile 
+
+
+
+# Install Step 2
 
 Mounting the boot partition
     • mount /dev/sda2 /boot
@@ -37,6 +46,8 @@ Timezone
     • locale-gen
     • nano /etc/env.d/02locale
 
+
+# Kernel Menu
 
 Installing the sources (kernel)
     • emerge --ask sys-kernel/gentoo-sources
