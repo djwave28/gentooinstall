@@ -1,0 +1,13 @@
+#!/bin/bash
+. ./src/config
+
+mount /dev/${ROOT} /mnt/gentoo
+
+value=`cat ./src/make.conf`
+echo "$value" > /mnt/gentoo/etc/portage/make.conf
+mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
+
+nano -w /mnt/gentoo/etc/portage/make.conf
+
+read -p "Press enter to continue"
+

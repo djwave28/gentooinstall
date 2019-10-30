@@ -7,13 +7,16 @@ chroot gentoo
 install step 2
 
 elect profile
-emerge world
+# emerge world
 
 
 edit fstab
 Kernel menu
+Grub Install
 
-Install Document
+
+Install help
+Grub Install Help
 read news
 
 make sys-config
@@ -28,3 +31,6 @@ configure kernel
 read help
 networking
 conpile kernel
+
+copy install files
+install make.conf

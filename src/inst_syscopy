@@ -1,0 +1,47 @@
+#!/bin/bash
+. ./src/config
+clear
+
+echo -e "\e[1m\e[96mCopy Installation Files\e[0m"
+echo -e "\e[93m"
+
+cat <<EOF
+
+##########################################################################
+#
+# This will copy the installation files needed for operations in Gentoo
+#
+# Copying the files is done in step 1 and only needed for reinstallation
+#
+##########################################################################
+
+
+
+EOF
+echo -e "\e[0m"
+
+while true; do
+    read -p "Do you wish to proceed? [Y/N]" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) menu_main;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+clear
+
+
+# set system time
+
+echo " "
+echo "mounting the root partition into /mnt/gentoo"
+mount /dev/${ROOT} /mnt/gentoo
+
+# echo $PWD
+
+# copy instal framework
+echo " "
+echo "Copy installation command files"
+cp ./gentoo /mnt/gentoo
+cp -a ./src /mnt/gentoo
+

@@ -10,7 +10,7 @@ clear
 selectkernel ()
 {
     select opt in "$@" "Quit"  ; do
-        
+clear        
         case $opt in
             'edit install config')
                 nano -m ./src/config
@@ -41,10 +41,6 @@ selectkernel ()
                 inst_chroot
                 break
             ;;
-            
-            
-            
-            
             'elect profile')
                 clear
                 inst_select_profile
@@ -55,13 +51,24 @@ selectkernel ()
                 menu_kernel
                 break
             ;;
-            'Install Document')
+            'Grub Install')
+                clear
+                inst_grub_install
+                menu_main
+                break
+            ;;
+            'Install help')
                 input="./src/install_help_doc"
                 nano $input
                 menu_main
                 break
             ;;
-            
+            'Grub Install Help')
+                input="./src/grub_install_doc"
+                nano $input
+                menu_main
+                break
+            ;;
             'edit fstab')
                 if [[ "$PWD" = / ]]; then
                     nano -m /etc/fstab
@@ -85,8 +92,23 @@ selectkernel ()
                 menu_main
                 break
             ;;
-            'install kernel')
-                echo "starting step 1"
+            'install make.conf')
+                if [[ "$PWD" = / ]]; then
+                    nano -m /etc/fstab
+                    menu_main
+                    echo "Only available when not chrooted"
+                else
+                    inst_makeconf
+                    echo "make.conf copied to gentoo"
+                fi
+                read -p "Press enter to continue"
+                menu_main
+                break
+                break
+            ;;
+            'copy install files')
+                inst_syscopy
+                menu_main
                 break
             ;;
             'download tarball')
@@ -131,7 +153,6 @@ selectkernel ()
             ;;
             *)
                 echo -e  "\e[91mInvalid option\e[0m"
-                
             ;;
         esac
     done

@@ -1,4 +1,6 @@
 #!/bin/bash
+. ./src/config
+
 
 mapfile -t menu_array < ./src/menu_kernel_items
 
@@ -33,10 +35,12 @@ selection_menu ()
             ;;
             'install kernel')
                 inst_linux_kernel
+                menu_kernel
                 break
             ;;
-            'install kernel')
-                echo "starting step 1"
+            'config kernel')
+                inst_kernel_config
+                menu_kernel
                 break
             ;;
             'install initramfs')
@@ -46,12 +50,11 @@ selection_menu ()
                 menu_kernel
                 break
             ;;
-            'configure kernel')
-                echo "starting step 1"
-                break
-            ;;
-            'conpile kernel')
-                echo "starting step 1"
+            
+            'compile kernel')
+                inst_kernel_compile
+                clear
+                menu_kernel
                 break
             ;;
             'install initramfs')

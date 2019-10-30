@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+cat <<EOF
+
+Activating the GRUB2 boot loader
+
+Mount /boot if applicable:
+root #mount /boot
+
+When using an EFI platform, make sure that the EFI System Partition is available (mounted) at /boot/efi. This can either be through a specific mount point (at /boot/efi) or by having an entire /boot partition formatted with the FAT filesystem. This will effectually render /boot into a large EFI System Partition.
+
+Presuming only /boot/efi is FAT: 
+
+
+EOF
+
+
+read -p "Press enter to start installing grub 2."
+
+emerge --ask --newuse --deep sys-boot/grub:2
+emerge --ask --newuse sys-boot/os-prober

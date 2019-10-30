@@ -120,7 +120,6 @@ read -p "Press enter to continue"
 
 value=`cat ./src/make.conf`
 echo "$value" > /mnt/gentoo/etc/portage/make.conf
-
 nano -w /mnt/gentoo/etc/portage/make.conf
 
 clear
