@@ -12,11 +12,12 @@
 #
 ############################################################
 
-DISK="sda"
-BOOT="sda2"
-EFI="sda1"
-ROOT="sda4"
-
+DISK="sdc"
+EFI="sdc1"
+#BOOT="sdc2"
+SWAP="sdc2"
+ROOT="sdc3"
+HOME="sdc4"
 
 TIMEZONE="America/Los_Angeles"
 

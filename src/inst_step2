@@ -1,7 +1,21 @@
 #!/bin/bash
 . ./src/config
 
-mount /dev/${BOOT} /boot
+
+
+
+if [ -z ${EFI+x} ]; 
+then 
+	echo "EFI is not set"; 
+else 
+        # mount /dev/${BOOT} /boot
+	echo "'$EFI' is mounted in /boot"; 
+fi
+
+#read -p "Press enter to continue"
+#exit;
+
+mount /dev/${EFI} /boot
 
 clear
 

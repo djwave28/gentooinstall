@@ -1,8 +1,13 @@
 #!/bin/bash
 
-# Copying DNS info
 
-mount /dev/sda4 /mnt/gentoo
+. ./src/config
+
+#echo ${ROOT}
+#exit
+
+# Copying DNS info
+mount /dev/${ROOT} /mnt/gentoo
 
 cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
 

@@ -142,14 +142,13 @@ read -p "Press enter to continue"
 # Chrooting
 
 mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
+
 clear
 
 mkdir --parents /mnt/gentoo/etc/portage/repos.conf
-
 cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 
 clear
-
 
 cat <<EOF
 

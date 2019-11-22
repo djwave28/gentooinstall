@@ -19,7 +19,7 @@ addToPATH ./src
 cat ./src/documentation | while read -r ; do echo -e "$REPLY"; sleep 0.01; done
 
 read -p "Hit enter to continue"
-
+clear
 
 startmenu() {
     menu_main
