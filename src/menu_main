@@ -58,6 +58,20 @@ clear
                 menu_main
                 break
             ;;
+     'grub-efi')
+    if [[ "$PWD" = / ]]; then
+                     inst_grub_efi
+  clear
+                    menu_main
+                else
+                    echo "not chrooted in gentoo"
+                fi
+               
+                break
+            ;;
+
+
+
             'Install help')
                 input="./src/install_help_doc"
                 nano $input

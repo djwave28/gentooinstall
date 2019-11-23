@@ -57,8 +57,8 @@ selection_menu ()
                 menu_kernel
                 break
             ;;
-            'install initramfs')
-                echo "starting step 1"
+            'install firmware')
+                emerge --ask sys-kernel/linux-firmware
                 break
             ;;
             'Back')
