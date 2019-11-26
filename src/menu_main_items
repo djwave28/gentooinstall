@@ -1,19 +1,29 @@
+** Pre Requisites **
 edit install config
 preparing disk
 edit make.conf
 
+** SEQUENCE **
 install step 1
 chroot gentoo
 install step 2
 
-elect profile
-# emerge world
+** PROFILE **
+select profile
+emerge profile
 
 
+etc-update
+
+**************
+* GRUB MENU **
+**************
 edit fstab
 Kernel menu
 Grub Install
 grub-efi
+
+install dhcpcd
 
 
 Install help

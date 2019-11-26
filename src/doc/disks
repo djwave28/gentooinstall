@@ -1,0 +1,17 @@
+Prepare Disks
+
+Assuming installation disk is /dev/sda
+
+Minimum requirements:
+
+/dev/sda1	600MB	FAT32	EF00 (efi)	/boot
+/dev/sda2	9GB	swap	linux-swap	swapon
+/dev/sda3	20GB	ext4	root		/
+/dev/sda4	30GB	ext4	home		/home
+
+Formatting
+mkfs.vfat	/dev/sda1
+mkfs.swap	/dev/sda2
+mkfs.ext4	/dev/sda3
+mkfs.ext4	/dev/sda4
+

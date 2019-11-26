@@ -89,6 +89,12 @@ Automatically start networking at boot
 The hosts file
 127.0.0.1     tux.homenetwork tux localhost
 
+Change the profile:
+    • eselect profile list
+    • eselect profile set <number>
+    • emerge --update --deep --newuse -av @world 
+    • emerge --depclean -a
+
 
 
 

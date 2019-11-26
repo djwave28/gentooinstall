@@ -1,0 +1,6 @@
+Parameters
+
+Throughout the installation some parameters will be set and disks will be mounted.
+Set the variables to their correct values.
+
+Set the partitions, timezone, and other information for automatic configuration dusring the installation process.

@@ -1,8 +1,23 @@
 #!/bin/bash
+cat <<EOF
+
+##########################################################################
+#
+# In step 2 it will be determined what desktop profile will be used
+# 
+# - fetch portage snapshot
+# - select a profile
+# 
+##########################################################################
+EOF
+
+
 . ./src/config
+. /etc/profile
+env-update
 
-
-
+echo " "
+echo "mounting boot patition"
 
 if [ -z ${EFI+x} ]; 
 then 
@@ -19,83 +34,45 @@ mount /dev/${EFI} /boot
 
 clear
 
-echo -e "\e[1m\e[96mGentoo Installation Phase 1\e[0m"
+
 echo -e "\e[93m"
-
-cat <<EOF
-
-##########################################################################
-#
-# In step 2 it will be determined what desktop profile will be used
-# 
-# Step 2 contains teh following:
-# - fetch portage snapshot
-# - set and generate locales
-# - select desktop profile
-# 
-# There will also be a news list generated. This news can be read 
-# from the main menu 
-#
-# To learn more on teh Gentoo installation, please refere to the handbook.
-# visit: https://wiki.gentoo.org/
-#
-##########################################################################
-
-
-Configuring Portage
-Installing an ebuild repository snapshot from the web
-
-
-EOF
-
 echo -e "\e[1m\e[91m"
-cat <<EOF
-WARNING: This step contains merging the profile. This can take up considerable 
-time that can occupy the computer for several hours.
-EOF
 echo -e "\e[0m"
 echo -e "\e[0m"
 
 
-read -p "Press enter to continue"
+read -p "Press enter to install portage repository"
 emerge-webrsync
 
 eselect news read > ./src/news.txt
 
+echo "SystemD from here"
 
-read -p "Press enter to continue"
+read -p "Press enter and select Gnome/Systemd"
+
+
+
+
+
 
 cat  <<EOF
-Next choose the profiles
+This installation process is based on Gnome and SystemD. Choose the correct 
+profile to facilitate this installation
 EOF
 
 
-echo ${TIMEZONE} > /etc/timezone
-emerge --config sys-libs/timezone-data
-clear
-nano -w /etc/locale.gen
-locale-gen
 
-cat <<EOF > /etc/env.d/02locale
-LANG="en_US.UTF-8"
-LC_COLLATE="C"
-EOF
-
-nano /etc/env.d/02locale
-
-
-
-# eselect locale list > locales.txt
-
-locale-gen
-
+############################################################################
+# PROFILE SELECTION
+#
+# generate profile list and generate a selection menu
+############################################################################
 eselect profile list > ./src/file.txt
-
-
 mapfile -t profileArray < ./src/file.txt
 
-
+# unset first line
 unset profileArray[0]
+
 clear
 
 selectprofile ()
@@ -119,6 +96,7 @@ selectprofile ()
 
 selectprofile "${profileArray[@]}"
 
+############################################################################
 
 clear
 cat <<EOF

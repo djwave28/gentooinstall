@@ -1,0 +1,26 @@
+#!/bin/bash
+
+cat <<EOF
+##########################################################################
+#
+# Depending on the selection of the profile, this can take a substantial
+# amount of time. 
+#
+# The installation might get interupted. Run etc-update.
+##########################################################################
+
+
+
+EOF
+
+read -r -p "Do you wish to proceed? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+    emerge --verbose --update --deep --newuse @world
+    etc-update
+    
+else
+    exit
+fi
+
+

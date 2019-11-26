@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 . ./src/config
 
 #echo ${ROOT}
@@ -40,6 +39,7 @@ fi
 
 
 chroot /mnt/gentoo /bin/bash
+env-update
 source /etc/profile
 
 # this does not work from a running script.

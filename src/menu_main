@@ -10,7 +10,7 @@ mapfile -t menu_array < ./src/menu_main_items
 selectkernel ()
 {
     select opt in "$@" "Quit"  ; do
-clear        
+        clear
         case $opt in
             'edit install config')
                 nano -m ./src/config
@@ -42,7 +42,7 @@ clear
                 inst_chroot
                 break
             ;;
-            'elect profile')
+            'select profile')
                 clear
                 inst_select_profile
                 break
@@ -58,20 +58,31 @@ clear
                 menu_main
                 break
             ;;
-     'grub-efi')
-    if [[ "$PWD" = / ]]; then
-                     inst_grub_efi
-  clear
+            'grub-efi')
+                if [[ "$PWD" = / ]]; then
+                    inst_grub_efi
+                    clear
                     menu_main
                 else
                     echo "not chrooted in gentoo"
                 fi
-               
+                
                 break
             ;;
-
-
-
+            
+            
+            'install dhcpcd')
+                if [[ "$PWD" = / ]]; then
+                    emerge --ask net-misc/dhcpcd
+                    clear
+                    menu_main
+                else
+                    echo "not chrooted in gentoo"
+                fi
+                
+                break
+            ;;
+            
             'Install help')
                 input="./src/install_help_doc"
                 nano $input
@@ -102,8 +113,13 @@ clear
             ;;
             
             
-            'emerge world')
+            'emerge profile')
                 inst_emerge_world
+                menu_main
+                break
+            ;;
+            'etc-update')
+                etc-update
                 menu_main
                 break
             ;;

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cat  <<EOF
-"Next choose a profile "
+"Choose a profile "
 EOF
 
 eselect profile list > ./src/file.txt
@@ -20,6 +20,7 @@ profileMenu ()
         elif [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#-1)) ];
         then
             echo "You selected $option which is option $REPLY"
+	    eselect profile set $REPLY
             break;
         else
             echo "Incorrect Input: Select a number 1-$#"

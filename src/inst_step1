@@ -9,16 +9,13 @@ cat <<EOF
 
 ##########################################################################
 #
-# Step 1 will install the Gentoo base setup for further installation
-#
-# This step will contain following:
+# Installatio phase one will install the base necessities to chroot into
+# the system. 
+# 
+# - mount root partition
+# - set time
 # - download and install tarball
 # - Set make.conf parameters
-#
-# Make sure all variables in the system are set correctly before 
-# proceeding installation. Check menu selection 1.
-# 
-# To learn about the installation process, visit: https://wiki.gentoo.org/
 #
 ##########################################################################
 
@@ -27,11 +24,18 @@ cat <<EOF
 EOF
 echo -e "\e[0m"
 
+
+
+# Choice: Move on or not
 while true; do
     read -p "Do you wish to proceed? [Y/N]" yn
     case $yn in
         [Yy]* ) break;;
-        [Nn]* ) menu_main;;
+        [Nn]* ) 
+	clear
+	menu_main
+break
+	;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -39,40 +43,34 @@ clear
 
 
 # set system time
-echo "ntpd -q -g"
+echo "Set time"
 ntpd -q -g
-
 echo " "
+
+
 echo "mounting the root partition into /mnt/gentoo"
 mount /dev/${ROOT} /mnt/gentoo
+echo " "
 
 # echo $PWD
 
 # copy instal framework
-echo " "
-echo "Copy installation command files"
+echo "Copy installation help"
 cp ./gentoo /mnt/gentoo
 cp -a ./src /mnt/gentoo
 cd /mnt/gentoo
 
 echo " "
 
-read -p "Step1 is downloading and installing the tarbal. Press enter to continue"
+read -p "Next the links web browser will start to download the tarbal. Press enter to continue"
 
 clear
-
-echo " "
-echo "We will be downloading the stage 3 tarball."
-echo " "
-
-read -p "Press enter to launch the the links terminal web browser."
 
 links https://www.gentoo.org/downloads/mirrors/
 
 clear
 
 # read -p "Press enter to continue"
-echo " "
 prompt="Please select the tarball file or other option:"
 echo " "
 
@@ -105,73 +103,47 @@ done
 clear
 
 
-
+read -p "Make channges to make.conf. Press enter to continue"
 cat <<EOF
 ##########################################################################
-#
-# Next step is setting the system flags. The settings are for
-# an i7 CPU Sandy Bridge, Change as needed
+# The make.conf file detemines teh configurattion used during the 
+# merging process. It is recommended to configure the make.conf file 
+# before installation. The configuration will be copied to the 
+# make.conf in gentoo portage
+# Throughout installation the make.comf file may change. 
 #
 ##########################################################################
 EOF
-
-read -p "Press enter to continue"
-
 
 value=`cat ./src/make.conf`
 echo "$value" > /mnt/gentoo/etc/portage/make.conf
 nano -w /mnt/gentoo/etc/portage/make.conf
 
 clear
-
-cat <<EOF
-##########################################################################
-#
-# Next step is choosing download mirrors that we use to
-# download packageds and updates. Choose mirrors that give
-# a bbetter speed and download. Usually that will be the
-# closets mirrors.
-#
-##########################################################################
-EOF
-
-
-read -p "Press enter to continue"
-
-
-# Chrooting
-
+read -p "Next choose the mirrors to download packages. Press enter to continue"
 mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
 
-clear
-
+# Chrooting
 mkdir --parents /mnt/gentoo/etc/portage/repos.conf
 cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
 
 clear
 
 cat <<EOF
 
-Great!
+This part is done. Press enter to exit and restart the menu to chroot
+into the system
+# . gentoo
 
-At this point you have the base sustemn installed and you can come
-back at any time by installing the your boot medium
+After chrooting you must agaion call the install helper menu with 
+# . gentoo
 
-Just remount your installation scripts and start the menu again
-
-> . gentoo
-
-The script will stop now and you must exit. Rastart the menu  and
-chroot into gentoo. Then start step 2
-
-
-If the Gentoo installation is interrupted anywhere after this point, it is
-possible to 'resume' the installation at this step. 
-
+Then start step 2
 
 EOF
 
-read -p "Press enter to quit"
+read -p ""
 exit
 
 
